@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Bestie? 🤝</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #fdf2f8; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .bg-element {
+            position: absolute;
+            bottom: -50px;
+            animation: flowUp 6s linear infinite;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        @keyframes flowUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            width: 95%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 20px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.1);
+            z-index: 10;
+        }
+
+        .emoji-display { font-size: 60px; margin-bottom: 10px; }
+
+        #question-box {
+            min-height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 19px;
+            color: #be185d;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        u {
+            text-decoration-color: #ff4d6d;
+            text-underline-offset: 4px;
+        }
+
+        .slide-in {
+            animation: slideInText 0.5s ease-out forwards;
+        }
+
+        @keyframes slideInText {
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .btn-group { 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        #yesBtn { background-color: #065f46; color: white; }
+        #noBtn { background-color: #64748b; color: white; }
+
+        #celebration { display: none; }
+        
+        /* কনগ্রাচুলেশন অ্যানিমেশন */
+        .congrats-text {
+            color: #065f46;
+            font-size: 24px;
+            margin-top: 10px;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-content">
+        <div class="emoji-display" id="main-emoji">🌸✨</div>
+        <div id="question-box">
+            <h1 id="question" class="slide-in">শুনুন রণিতা! আমি সমীর, আপনি কি আমার <u>বেস্ট ফ্রেন্ড</u> হবেন? 👋</h1>
+        </div>
+
+        <div class="btn-group">
+            <button id="yesBtn" class="btn" onclick="sayYes()">হ্যাঁ!</button>
+            <button id="noBtn" class="btn" onclick="handleNoClick()">না</button>
+        </div>
+    </div>
+
+    <div class="container" id="celebration">
+        <div class="emoji-display">🎊🥳</div>
+        <h1 class="congrats-text">অভিনন্দন! 🎉</h1>
+        <h1 style="color: #065f46; margin-top: 10px;">এখন থেকে আমরা <u>বেস্ট ফ্রেন্ড</u>!</h1>
+        <p style="margin-top: 20px; color: #be185d; font-weight: bold;">আপনার হোয়াটসঅ্যাপ থেকে আমাকে একটি মেসেজ দিন... 🚀</p>
+        <p style="font-size: 50px; margin-top: 15px;">🤝💬✨</p>
+    </div>
+
+    <script>
+        const questionHeading = document.getElementById('question');
+        const mainContent = document.getElementById('main-content');
+        const celebration = document.getElementById('celebration');
+
+        // আপনার নম্বরটি এখানে দিন (Country Code সহ, যেমন: 88017XXXXXXXX)
+        const MY_NUMBER = "916296638174"; 
+
+        const bgItems = ['🍗', '🍿', '🎁', '📸', '📚', '🍦', '🛍️', '💄', '💬'];
+
+        setInterval(() => {
+            const el = document.createElement('div');
+            el.className = 'bg-element';
+            el.innerHTML = bgItems[Math.floor(Math.random() * bgItems.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 6000);
+        }, 400);
+
+        const messages = [
+            "আপনার <u>মন খারাপ</u> হলে হাসানোর দায়িত্ব নেব, তবে কি আমার <u>বন্ধু</u> হতে পারেন? 😊✨",
+            "যদি আপনাকে মাঝে মাঝে <u>বিরিয়ানি</u> খাওয়াই, তাহলে কি আমরা বন্ধু হতে পারি? 🍗🍽️",
+            "যদি আপনাকে মাঝে মাঝে <u>ফুচকা</u> খাওয়াই, তবে কি আমরা বন্ধু হতে পারি? 😋🍿",
+            "যদি আপনার সমস্ত <u>সিক্রেট</u> আমি গোপন রাখি, তাহলে কি আমরা বন্ধু হতে পারি? 🤫🔐",
+            "যদি আপনার পছন্দের <u>গানগুলি</u> একসাথে শুনি, তাহলে তো আমরা বন্ধু হতেই পারি! 🎧🎶",
+            "আপনাকে মানাবে এমন <u>শাড়ি, কানের দুল, নেলপলিশ ও লিপস্টিক</u> গিফট করলে কি বন্ধু হওয়া যায়? 💄🎁",
+            "যদি আপনার অনেক ভালো ভালো <u>ছবি</u> তুলে দিই, তাহলে কি আমরা বন্ধু হতে পারি? 📸✨",
+            "যদি আপনার তালে তাল মিলিয়ে একটু <u>ঢং</u> করি, তাহলে কি আমরা বন্ধু হতে পারি? 💃🕺",
+            "আপনার পছন্দের <u>রিলস</u> যদি আপনাকে নিয়মিত শেয়ার করি, তবে কি আমরা বন্ধু হতে পারি? 📱🎬",
+            "যদি আপনি আর আমি মিলে চুটিয়ে <u>গসিপ</u> করি, তবে কি আমরা বন্ধু হতে পারি? 💬☕",
+            "যদি আপনার পছন্দের <u>ফুল ও চারাগাছ</u> আপনাকে গিফট করি, তবে কি আমরা বন্ধু হতে পারি? 🪴🌹",
+            "আপনার ঘুরতে যেতে ইচ্ছে করলে আমি যদি <u>ড্রাইভার</u> হয়ে যাই, তবে কি আমরা বন্ধু হতে পারি? 🚗💨",
+            "যদি আপনাকে মাঝে মাঝে <u>আইসক্রিম</u> খাওয়াই, তবে কি আমরা বন্ধু হতে পারি? 🍦❤️",
+            "ঠিক আছে, আমায় <u>হোয়াটসঅ্যাপে</u> মেসেজ করুন! 🥰✨"
+        ];
+
+        let clickCount = 0;
+
+        function changeText(newHtml) {
+            questionHeading.classList.remove('slide-in');
+            void questionHeading.offsetWidth; 
+            questionHeading.innerHTML = newHtml;
+            questionHeading.classList.add('slide-in');
+        }
+
+        function handleNoClick() {
+            if (clickCount < messages.length) {
+                changeText(messages[clickCount]);
+                clickCount++;
+            } else {
+                sayYes();
+            }
+        }
+
+        function sayYes() {
+            // ১. মেইন কন্টেন্ট সরিয়ে সেলিব্রেশন দেখানো
+            mainContent.style.display = 'none';
+            celebration.style.display = 'block';
+            document.body.style.backgroundColor = "#ecfdf5"; // সাকসেস গ্রিন ব্যাকগ্রাউন্ড
+
+            // ২. হোয়াটসঅ্যাপ মেসেজ তৈরি
+            const message = encodeURIComponent("Hey! I accepted your friendship request. Now we are best friends! 🤝✨");
+            const whatsappUrl = `https://wa.me/${MY_NUMBER}?text=${message}`;
+
+            // ৩. ২ সেকেন্ড পর অভিনন্দন বার্তার পর অটো রিডাইরেক্ট
+            setTimeout(() => {
+                window.location.href = whatsappUrl;
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
