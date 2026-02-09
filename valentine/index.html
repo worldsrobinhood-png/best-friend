@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be Mine, My Jaan ❤️</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #fff5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .floating-element {
+            position: absolute;
+            bottom: -50px;
+            animation: floatUp 5s linear infinite;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .emoji-display { font-size: 100px; margin-bottom: 20px; }
+
+        h1 {
+            font-size: 24px;
+            color: #d63384;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            min-height: 80px; 
+        }
+
+        .btn-group { display: flex; justify-content: center; gap: 15px; min-height: 50px; }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        #yesBtn { background-color: #28a745; color: white; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
+        #noBtn { background-color: #dc3545; color: white; position: relative; }
+
+        #celebration { display: none; }
+        #celebration h1 { color: #ff4d6d; font-size: 28px; }
+
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #ff4d6d;
+            clip-path: polygon(50% 0% , 100% 35%, 82% 100%, 50% 80%, 18% 100%, 0% 35%);
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-content">
+        <div class="emoji-display" id="main-emoji">🤵‍♂️🌹</div>
+        <h1 id="question">Will you be my valentine, Pramesh? ❤️</h1>
+
+        <div class="btn-group">
+            <button id="yesBtn" class="btn" onclick="sayYes()">Yes</button>
+            <button id="noBtn" class="btn" onclick="handleNo()">No</button>
+        </div>
+    </div>
+
+    <div class="container" id="celebration">
+        <div class="emoji-display">👩‍❤️‍👨</div>
+        <h1>I knew you'd be mine! 😘✨</h1>
+        <p style="font-size: 20px; color: #d63384; margin-top: 10px;">Forever & Always, My Jaan 💓</p>
+        <p style="font-size: 50px;">🫂💓</p>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const questionHeading = document.getElementById('question');
+        const mainContent = document.getElementById('main-content');
+        const celebration = document.getElementById('celebration');
+        const mainEmoji = document.getElementById('main-emoji');
+
+        let clickCount = 0;
+        let currentBgEmoji = '❤️'; 
+
+        const pookiTexts = [
+            "You're breaking my heart... 💓 please be my sweeti heart",
+            "Please don't do this! 🌹 my jaan",
+            "I'll be very sad and lonely, my honey ✨",
+            "You are my everything, my jaan ❤️",
+            "I only want you to be mine, my sweeti heart 💍",
+            "Life feels empty without your smile, my honey 🌸",
+            "I'll give you a lot of chocolate! 🍫 please be my honey",
+            "My heart only beats for you, my jaan 💓",
+            "I can't imagine a day without you, my sweeti heart 🌹",
+            "Don't let this love fade away, my honey ✨",
+            "I'm keeping a place for you in my heart, my jaan 🏠❤️",
+            "Every star reminds me of you, my sweeti heart ⭐",
+            "Just say you'll be mine, my honey ⏳",
+            "You're the best thing that ever happened to me, my jaan 🤵‍♂️",
+            "My tears are writing your name, my sweeti heart 😭🖋️",
+            "I promise to hold your hand forever, my honey 🤝",
+            "You are the light in my darkness, my jaan 🕯️",
+            "I'm nothing without your love, my sweeti heart 🌊",
+            "Please be mine forever, my honey 📖",
+            "You can't escape from my love, you have to be mine! 🥰❤️"
+        ];
+
+        setInterval(() => {
+            const el = document.createElement('div');
+            el.innerHTML = currentBgEmoji;
+            el.className = 'floating-element';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            el.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 5000);
+        }, 400);
+
+        function handleNo() {
+            if (clickCount < pookiTexts.length) {
+                const currentText = pookiTexts[clickCount];
+                questionHeading.innerText = currentText;
+
+                // ব্যাকগ্রাউন্ড ইমোজি কন্ট্রোল
+                if (currentText.includes("chocolate")) {
+                    currentBgEmoji = '🍫';
+                } else if (currentText.includes("tears are writing your name")) {
+                    currentBgEmoji = '😭';
+                } else if (currentText.includes("star")) {
+                    currentBgEmoji = '⭐';
+                } else {
+                    currentBgEmoji = '❤️';
+                }
+
+                // মেইন ইমোজি পরিবর্তন (কান্নার ইমোজি সরিয়ে রোমান্টিক ইমোজি দেওয়া হয়েছে)
+                if(clickCount > 5) mainEmoji.innerText = "🥀🙇‍♂️";
+                if(clickCount > 12) mainEmoji.innerText = "🌸💓";
+                clickCount++;
+            } else {
+                moveButton();
+            }
+        }
+
+        noBtn.addEventListener('mouseover', () => {
+            if (clickCount >= pookiTexts.length) moveButton();
+        });
+
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            noBtn.style.position = "fixed";
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.style.zIndex = "999";
+        }
+
+        function sayYes() {
+            mainContent.style.display = 'none';
+            celebration.style.display = 'block';
+            document.body.style.backgroundColor = "#fff0f3";
+            currentBgEmoji = '💖';
+            createConfetti();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.animationDelay = Math.random() * 2 + 's';
+                conf.style.backgroundColor = i % 2 === 0 ? '#ff4d6d' : '#ff85a1';
+                document.body.appendChild(conf);
+            }
+        }
+    </script>
+</body>
+</html>
